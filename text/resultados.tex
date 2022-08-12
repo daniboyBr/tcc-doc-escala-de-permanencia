@@ -3,7 +3,7 @@ O objeto deste trabalho é um sistema que faz o gerenciamento e a escalação au
 
 \section{Sistema}
 
-O sistema foi desevolvido utilizando o método de containerização, ou seja cada serviço tem o seu container. Para se construir a aplicação é necessário clonar o repositório, disponível \url{https://github.com/daniboyBr/tcc-escala-permanencia-v2}, e seguir os passos descritos no arquivo README.md. Após seguir todos os passos o sistema pode ser acesso em \url{http://localhost:8080}. Para se testar a aplicação a base de dados foi populada com dados fictícios, podemdo o perfil de administrador ser acessado com o e-mail "admin@permanencia.com" e a senha "123456789".
+O sistema foi desevolvido utilizando o método de containerização, ou seja cada serviço tem o seu container. Para se construir a aplicação é necessário clonar o repositório, disponível \url{https://github.com/daniboyBr/tcc-escala-permanencia-v2}, e seguir os passos descritos no arquivo README.md. Após seguir todos os passos o sistema pode ser acesso em \url{http://localhost:8080}. Para se testar a aplicação, a base de dados foi populada com dados fictícios, podendo o perfil de administrador ser acessado com o e-mail "admin@permanencia.com" e a senha "123456789".
 
 \subsection{Acessando o sistema}
 
@@ -16,7 +16,7 @@ A página inicial do sistema exibe o formulário de login, apresentada na \ref{f
     \label{fig:login}
 \end{figure}
 
-\section{Registrando-se no Sistema}
+\subsection{Registrando-se no Sistema}
 
 Na Figura \ref{fig:singnup} é mostrada a tela em que o militar deve realizar o seu cadastro, sendo que os campos e-mail e identidade devem ser únicos para cada militar.
 
@@ -57,10 +57,12 @@ Na Figura \ref{fig:escalaservico}, é mostrado o botão livro, é através desse
 \end{figure}
 
 
-\subsection{Gerar Escala}
+\subsection{Escalação Automática de Militares}
 
-A geração da escala acontece por debaixo dos panos. O Laravel disponibiliza uma classe chamada Command, a qual é necessário extender para criar um comando personalizado. Ao extender essa classe, foi implementadao o método handle, responsável por conter toda lógica para escalar os militares,  conforme apresentado no Algorítimo \ref{lst:algofirst}.
+A geração da escala acontece por debaixo dos panos. O Laravel disponibiliza uma classe chamada Command, a qual é necessário extender para criar um comando personalizado. Ao extender essa classe, foi implementadao o método handle, responsável por conter toda lógica para escalar e regras para escalar os militares,  conforme apresentado no Algorítimo \ref{lst:algofirst}.
 
+\begin{center}
+\noindent\begin{minipage}[t]{0.80\linewidth}
 \begin{lstlisting}[frame=single, caption={Classe responsável por gerar escala}, label={lst:algofirst}]
 class DailyScale extends Command
 {
@@ -72,9 +74,13 @@ class DailyScale extends Command
     }
 }
 \end{lstlisting}
+\end{minipage}
+\end{center}
 
-Ao se criar um comando personalizado no laravel, o mesmo ainda não é disparado de imediato, foi necessário configurá-lo na classe Kernel que extende de ConsoleKernel, para isso obrigatoriamente devemos informar um comando e a frequência na função shcedule, conforme mostrado no Algorítmo \ref{lst:algosecond}. A escalação automática foi configurada para rodar todo dia a meia noite.
+Ao se criar um comando personalizado no laravel, o mesmo ainda não é disparado de imediato, foi necessário configurá-lo na classe Kernel que extende de ConsoleKernel, para isso obrigatoriamente devemos informar um comando e a frequência na função schedule, conforme mostrado no Algorítmo \ref{lst:algosecond}. A escalação automática foi está para rodar todo dia a meia-noite.
 
+\begin{center}
+\noindent\begin{minipage}[t]{0.80\linewidth}
 \begin{lstlisting}[frame=single, caption={Configuração da geração da escala}, label={lst:algosecond}]
 class Kernel extends ConsoleKernel
 {
@@ -88,3 +94,72 @@ class Kernel extends ConsoleKernel
     /**  ommited code  */
 }
 \end{lstlisting}
+\end{minipage}
+\end{center}
+
+\subsection{Notificação de Militares}
+
+Quando a escala é gerada, um e-mail é enviado para o militar, no e-mail que ele cadastrou no sistema, conforme a Figura \ref{fig:notification}. Esse mesmo e-mail possui um link de confirmação, que ao ser clicado confirma que o militar esta ciente de sua escalação.
+
+\begin{figure}[H]
+    \centering
+    \caption{Notificação do Militar}
+    \includegraphics[width=0.8\textwidth]{images/6 - Email enviado.png}
+    \label{fig:notification}
+\end{figure}
+
+Na Figura \ref{fig:notificationreplace}, mostra o e-mail enviado ao militar caso haja alguma alteração na escala, o mesmo também deve confirmar que está ciente de que houve uma troca na escala e ambos os militares são notificados, o que estava escala antes da troca e o militar que vai realizar a troca.
+
+\begin{figure}[H]
+    \centering
+    \caption{Notificação de Troca de Militar}
+    \includegraphics[width=0.8\textwidth]{images/6 - Email enviado Troca.png}
+    \label{fig:notificationreplace}
+\end{figure}
+
+\subsection{Troca de Militares}
+
+O usuário adminstrador ou escalante, só pode executar uma ação na escala, que é a troca de militares. A troca de militaress só é possível se a escala não estiver fechada, ou seja, se a escala não for da data corrente ou se já passou da data do serviço. Quando a troca de militar está habilitada aparece o botão trocar, conforme apresentado na  Figura \ref{fig:replace}.
+
+\begin{figure}[!htb]
+    \centering
+    \caption{Troca de Militar}
+    \includegraphics[width=0.8\textwidth]{images/7 - Troca de Militar.png}
+    \label{fig:replace}
+\end{figure}
+
+Quando clicado no botão de troca o administrador é redirecionado pra uma página que contém o formúlario para efetuar a troca. Primeiro é  necessário buscar o militar que vai substituir o militar escalado, para isso é preciso informar a identidade do militar, conforme a Figura \ref{fig:formreplace}.
+
+\begin{figure}[!htb]
+    \centering
+    \caption{Formulário para Troca de Militar}
+    \includegraphics[width=0.8\textwidth]{images/7 - Troca de Militar - 2.png}
+    \label{fig:formreplace}
+\end{figure}
+
+Para efetivar a troca, o militar que irá substituir o militar escalado deve possuir a mesma grauação configurarada para aquele serviço, senão será apresentada a mensagem demonstrada na Figura \ref{fig:formreplaceerror}.
+
+\begin{figure}[!htb]
+    \centering
+    \caption{Formulário para Troca de Militar}
+    \includegraphics[width=0.8\textwidth]{images/7 - Erro Troca de Militar - Graduação.png}
+    \label{fig:formreplaceerror}
+\end{figure}
+
+A Figura \ref{fig:formreplaceerror2} também demonstra um outro erro que pode ocorrer caso o administrador tente cadastrar um militar que estaja impedido naquela data.
+
+\begin{figure}[!htb]
+    \centering
+    \caption{Formulário para Troca de Militar}
+    \includegraphics[width=0.8\textwidth]{images/7 - Erro Troca de Militar - Impedimento.png}
+    \label{fig:formreplaceerror2}
+\end{figure}
+
+Seguindo essas duas regras, o militar a ser escalado possuir a graduação necessária e não estar em impedimento e informando uma justificativa, a troca é realizada com sucesso, conforme demonstrado na Figura \ref{fig:formreplacesuccess}.
+
+\begin{figure}[H]
+    \centering
+    \caption{Escala após Troca}
+    \includegraphics[width=0.8\textwidth]{images/7 - Escala após a Troca de Militar.png}
+    \label{fig:formreplacesuccess}
+\end{figure}
