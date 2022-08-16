@@ -141,7 +141,7 @@ Para efetivar a troca, o militar que irá substituir o militar escalado deve pos
 
 \begin{figure}[!htb]
     \centering
-    \caption{Formulário para Troca de Militar}
+    \caption{Erro de Gradução Necessária}
     \includegraphics[width=0.8\textwidth]{images/7 - Erro Troca de Militar - Graduação.png}
     \label{fig:formreplaceerror}
 \end{figure}
@@ -150,16 +150,83 @@ A Figura \ref{fig:formreplaceerror2} também demonstra um outro erro que pode oc
 
 \begin{figure}[!htb]
     \centering
-    \caption{Formulário para Troca de Militar}
+    \caption{Erro de Militar Impedido}
     \includegraphics[width=0.8\textwidth]{images/7 - Erro Troca de Militar - Impedimento.png}
     \label{fig:formreplaceerror2}
 \end{figure}
 
-Seguindo essas duas regras, o militar a ser escalado possuir a graduação necessária e não estar em impedimento e informando uma justificativa, a troca é realizada com sucesso, conforme demonstrado na Figura \ref{fig:formreplacesuccess}.
+Seguindo as seguintes regradas o militar a ser escalado possuir a graduação necessária, não estar em impedimento e informando uma justificativa, a troca é realizada com sucesso, conforme demonstrado na Figura \ref{fig:formreplacesuccess}.
 
 \begin{figure}[H]
     \centering
     \caption{Escala após Troca}
     \includegraphics[width=0.8\textwidth]{images/7 - Escala após a Troca de Militar.png}
     \label{fig:formreplacesuccess}
+\end{figure}
+
+
+\subsection{Posto de Gradução}
+
+Módulo responsável por definir a gradução do militar, consequentemente influência diretamente na escalação de militares, pois durante o processo de escalação serão priorizados primeiramente os militares de baixa patente e caso esses não estando disponíveis, escala aqueles que estiverem disponíveis. A graduação necessária para o posto de serviço é definida pelo módulo de serviço. A serguir é apresentada á Figura \ref{fig:postograuacao}, que mostra a tela responsável pela manutenção do módulo.
+
+
+\begin{figure}[!htb]
+    \centering
+    \caption{Modulo Posto de Grauçáo}
+    \includegraphics[width=0.8\textwidth]{images/10 - Posto de Graduacao.png}
+    \label{fig:postograuacao}
+\end{figure}
+
+
+\subsection{Posto de Serviço}
+
+O módulo de posto de serviço tem todas as funcionalidades necessárias para a manutenção dos postos de serviço. Os postos de serviços geridos por esse módulo, são os serviços para os quais os militares são escalados. A tela principal do módulo é apresentada na Figura \ref{fig:postoservico}, sendo as funcionalides de inserção e alteração disponíveis apenas para o usuario adminstrador.
+
+\begin{figure}[!htb]
+    \centering
+    \caption{Posto de Serviço}
+    \includegraphics[width=0.8\textwidth]{images/8 - Posto de Serviço.png}
+    \label{fig:postoservico}
+\end{figure}
+
+Uma regra importante definida por esse módulo, é apontar qual a graduação necessária para cada posto de serviço, um militar que não tenha a graduação necessária definida nesse módulo é imcapaz de ser escalado para o serviço, um exemplo das graduações definidas para o posto é apresentada na Figura \ref{fig:viewpostoservico}.
+
+\begin{figure}[!htb]
+    \centering
+    \caption{Visualizar Posto de Serviço }
+    \includegraphics[width=0.8\textwidth]{images/8 - Posto de Serviço - Graduacao.png}
+    \label{fig:viewpostoservico}
+\end{figure}
+
+\subsection{Indicar Gradução}
+
+Esse módulo é responsável por atribuir graduações a um determinado posto de serviço, a graduação só poder ser vinculada uma unica vez para cada posto de serviço, evitando uplicidade. A Figura \ref{fig:indicargraducao}, apresenta o formulário de vinculação.
+
+\begin{figure}[H]
+    \centering
+    \caption{Indicar Posto de Graduação}
+    \includegraphics[width=0.8\textwidth]{images/9 - Indicar Graduação.png}
+    \label{fig:indicargraducao}
+\end{figure}
+
+\subsection{Impedimento}
+
+O módulo de impedimento define um período em que o militar não poderá ser escalado mediante à uma justificativa. Cada impedimento, tem uma data de início e fim determinado, e um documento comprobatório. Ná Figura \ref{fig:impedimento} é aprensentado o formulário de cadastro do impedimento de um militar.
+
+\begin{figure}[H]
+    \centering
+    \caption{Cadastro de Impedimento}
+    \includegraphics[width=0.8\textwidth]{images/11 - Impedimento.png}
+    \label{fig:impedimento}
+\end{figure}
+
+\subsection{Auditoria}
+
+A auditoria é feita salvado o registro de toda e qualquer alteração na base de dados. Qualquer discrepência ou irregularidade deve ser solicitada a verificação das alteração por meio de relatórios extraídos diretos da base de dados. A Figura \ref{fig:auditoria}, apresenta uma visualização dos dados de auditoria contidos na base para fins de exemplo, não sendo um módulo disponível no sistema.
+
+\begin{figure}[H]
+    \centering
+    \caption{Registro de Auditoria}
+    \includegraphics[width=0.8\textwidth]{images/TELA DE AUTIDORIA.png}
+    \label{fig:auditoria}
 \end{figure}

@@ -1,16 +1,12 @@
 \chapter{Conclusões e Trabalhos Futuros}
 
-A conclusão deve conter os principais aspectos e contribuições de forma a
-finalizar o trabalho apresentado. Deve-se apresentar o que era esperado do
-trabalho através dos objetivos inseridos inicialmente e mostrar o que foi
-conseguido.
+Ao se o observar o problema de escalar equitativamente militares para determinados serviços, e as inúmeras falhas e fraudes geradas nesse processo, viu-se a necessidade de implementar um sistema que automatize o processo de escalação de militares e possibilitasse a auditoria em casos de suspeita de fraude. 
 
-Não deve-se inserir um novo assunto na conclusão. Aqui o autor apresentará as
-próprias impressões sobre o trabalho efetuado.
+Desenvolvido utilizando tecnologias como PHP e Laravel framework, o sistema pode ser rapidamente desenvolvido e implementado. Devido a sua vasta documentação e inúmeras bibliotecas dispónivel, pode ainda ser expandido e facilmente mantido. O sistema desenvolvido está em sua versão beta e compreende os requisitos mínimos para a solução do problema, que é a escalação equitativa de militares e a rastreabilidade das modificações 
+Com a adesão do sistema, passa-se a ter os dados centralizados e disponíveis a qualquer instante, além da rastreabilidade das modificações.
 
-É importante também que sejam identificadas limitações e problemas que surgiram
-durante o desenvolvimento do trabalho e quais as consequências do mesmo.
+O mesmo  sistema pode ser aderido por outras áreas além do Quartel General do Exécito, mas para isso é necessário implementar as regras específicas daquele setor.
 
-Os trabalhos futuros devem conter oportunidades de expansão do trabalho
-apresentado, bem como, novos projetos que puderam ser vislumbrados a partir do
-desenvolvimento do trabalho
+Uma outra modificação que seria benéfica e recomendável, em uma versão futura, é a separação dos dados referentes a auditoria de dados do sistema. Isso se faz necessário pois conforme o tempo passa pode se ter um volume maior de dados de auditoria do que de informações do sistema. Uma possibilidade é transferir os dados referentes a auditoria para um serviço próprio pra isso como servidores de logs, a exemplo o Graylog, que é um software livre capaz de indexar a informação permitindo buscas mais otimizadas e possui base de dados independente. Essa melhoria aumentaria ainda mais a segurança pois retiraria qualquer possibilidade de modificação dos dados por parte de pessoas que fazem manutenção do sistema.
+
+
